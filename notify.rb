@@ -1,10 +1,11 @@
 require 'libnotify'
 require_relative '.lib/lingr'
+require_relative './setting'
 
 # lingr の設定
 lingr_conf = {
-  :user    => "UserName",
-  :pass    => "PassWord",
+  :user    => Lingr_user,
+  :pass    => Lingr_password,
   :app_key => {},
     # You don't have to modify, if you don't use app_key.
     # Default : {}
@@ -17,7 +18,6 @@ lingr_conf = {
     # 'proxy_user'
     # 'proxy_pass' 
 }
-conf = lingr_conf.values
 
 # notify の設定
 Notify_conf = {
@@ -27,10 +27,10 @@ Notify_conf = {
   :urgency    => :normal,
   :append     => false,
   :transient  => true,
-  :icon_path  => "/usr/share/icons/HighContrast/scalable/emblems/emblem-default.svg"
+  :icon_path  => Linger_icon_path
 }
 
-def send_note(e, notify_conf=Notify_conf)
+def send_elem_notify(e, notify_conf=Notify_conf)
   if e.has_key?('message')
     m = e['message']
     if m.has_key?('icon_url')
@@ -48,6 +48,7 @@ def send_note(e, notify_conf=Notify_conf)
   Libnotify.show(notify)
 end
 
+conf = lingr_conf.values
 
 lingr = Lingr.new(conf[0], conf[1], conf[2], conf[3])
 elem = {}
@@ -56,7 +57,7 @@ enum_stream = stream.each
   while true
     begin
       elem = enum_stream.next
-      send_note(elem)
+      send_elem_notify(elem)
     rescue
       sleep(60)
       stream = lingr.stream
