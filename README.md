@@ -11,7 +11,7 @@
 
 ## 使い方
 <pre>
-  git clone https://github.com/hitsumabushi/lingr\_notifyer.git
+  git clone https://github.com/hitsumabushi/lingr_notifyer.git
   cd lingr_notifyer 
   bundle install
   ruby notify.rb &
