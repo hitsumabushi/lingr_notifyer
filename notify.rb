@@ -51,10 +51,8 @@ end
 
 lingr = Lingr.new(conf[0], conf[1], conf[2], conf[3])
 elem = {}
-begin
-  stream = lingr.stream
-  enum_stream = stream.each
-ensure
+stream = lingr.stream
+enum_stream = stream.each
   while true
     begin
       elem = enum_stream.next
@@ -65,5 +63,4 @@ ensure
       enum_stream = stream.each
       next
     end
-  end
 end

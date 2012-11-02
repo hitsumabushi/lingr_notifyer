@@ -73,7 +73,7 @@ class Lingr
 
   # Post method
   def post(path, params)
-    options = params.merge(@app_key)
+    options = (params.merge(@app_key)).merge(@user_agent)
     uri = URI.parse(get_url(path))
     http = Net::HTTP::Proxy(@post_proxy['host'], @post_proxy['port'], @post_proxy['proxy_user'], @post_proxy['proxy_pass']).post_form(uri, params)
     #http = Net::HTTP.post_form(uri, params)
